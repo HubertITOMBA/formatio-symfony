@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use App\Entity\Booking;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
@@ -83,10 +84,16 @@ class Ad
      */
     private $bookings;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="ad", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
 
@@ -104,15 +111,43 @@ class Ad
           $slugify = new Slugify();
           $this->slug = $slugify->Slugify($this->title);
      }
-
     }
 
-    
+    /**
+     * permet de récupérer le commentaiure d'un aurteur par rapport à une annonce
+     * @param User $author
+     * @return Comment | null
+     */
+    public function getCommentFromAuthor(User $author){
+        foreach ($this->comments as $comment){
+            if($comment->getAuthor() === $author)
+                return $comment;
+            }
+        return null;
+    }
+
+    /**
+     * Permet d'obtenir la moyenne des notes pour cette annonces
+     * @return float
+     */
+    public function getAvgRatings(){
+        //Calculer la somme de notations
+        $sum = array_reduce($this->comments->toArray(), function($total, $comment){
+            return $total + $comment->getRating();
+         }, 0);
+
+         //Faire la division pour avoir la moyenne
+         if(count($this->comments) > 0) return $sum / count($this->comments);
+
+         return 0;
+    }
+
+
+
     /**
      * Permet d'obtenir un tableau des jours qui ne sont pas disponibles pour une annonce 
      * @return array Un tableau d'objtes DateTime représentant les jours d'occupations
      */
-
     public function getNotAvailableDays(){
         $notAvailableDays = [];
       foreach ($this->bookings as $booking) {
@@ -269,7 +304,7 @@ class Ad
      */
     public function getBookings(): Collection
     {
-        return $this->startDate;
+        return $this->bookings;
     }
 
     public function addBookings(Booking $bookings): self
@@ -289,6 +324,37 @@ class Ad
             // set the owning side to null (unless already changed)
             if ($bookings->getAd() === $this) {
                 $bookings->setAd(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAd() === $this) {
+                $comment->setAd(null);
             }
         }
 
