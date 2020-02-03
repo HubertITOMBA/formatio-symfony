@@ -21,6 +21,8 @@
 
 {% block javascripts %}
   
-<script src="/js/ad.js"></script>
+{# <script src="/js/ad.js"></script> #}
+{# <script src="{{ asset('build/ad.js') }}"></script> #}
+{{ encore_entry_script_tags('ad') }}
     
 {% endblock %}

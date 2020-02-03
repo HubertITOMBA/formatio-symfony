@@ -54,6 +54,11 @@ class PaginationService {
 
 
     public function getPages(){
+        if(empty($this->entityClass)){
+            throw new \Exception("Vous n'avez pas spécifié l'entité sur laquelle nous devons paginer ! 
+            Utilisez la methode setEntityClass() de votre objet PaginationService !");
+        }
+
        // 1 Connaitre le total des enregstrement de la table 
        $repo = $this->manager->getRepository($this->entityClass);
        $total = count($repo->findAll());

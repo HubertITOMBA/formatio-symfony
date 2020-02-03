@@ -5,10 +5,12 @@
         <title>SymBNB - {% block title %}Bienvenue !{% endblock %}</title>
          <meta name="viewport" content="width=device-width, user-scalable=no">
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
+        -->
+           {{ encore_entry_script_tags('app') }}
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
        
        
         {# <script src="https://kit.fontawesome.com/eb460b014b.js" crossorigin="anonymous"></script> #}
@@ -18,12 +20,14 @@
         <script type="text/javascript" src="{{ asset('/js/popper.min.js') }}"></script>  #}
         {# <script type="text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>  #}
 
-        {# <link rel="stylesheet" href="/css/Cerulean_bootstrap.min.css"> #}
+         <!-- <link rel="stylesheet" href="/css/Cerulean_bootstrap.min.css">   -->
+         {{ encore_entry_link_tags('app') }} 
+         {# <link rel="stylesheet" href="{{ asset('build/app.css') }}">   #}
         {# <link rel="stylesheet" href="/css/litera_bootstrap.min.css"> #}
-        <link rel="stylesheet" href="/css/spacelab_bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="/css/spacelab_bootstrap.min.css"> -->
 
-        <link rel="stylesheet" href="/css/Aristo.css">
-        <link rel="stylesheet" href="/css/app.css"> 
+        <!-- <link rel="stylesheet" href="assets/css/aristo.css"> -->
+        <!-- <link rel="stylesheet" href="/css/app.css">  -->
 
         {% block stylesheets %} {% endblock %}
            {# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" /> #}
@@ -33,7 +37,10 @@
     <body>
 
         {% include 'partials/header.html.twig' %}
-
+      
+        <!-- <script scr="{{ asset('build/js/app.js') }}"></script> -->
+        <!-- <script scr="{{ encore_entry_script_tags('app') }}"></script> -->
+   
         {% block body %}
           
 
@@ -42,7 +49,7 @@
      
        
         {% block javascripts %} 
-
+           
         {# <script type="text/javascript" scr="{{ asset('/js/jquery.min.js') }}"></script>
         <script type="text/javascript" scr="{{ asset('/js/jquery-ui.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/popper.min.js') }}"></script> 

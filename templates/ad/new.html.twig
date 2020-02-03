@@ -51,6 +51,14 @@
 
 {% block javascripts %}
 
-  <script src="/js/ad.js"></script>
+    {# <script src="/js/ad.js"></script> #}
+ 
+    {# {{ encore_entry_link_tags('css/app') }} pour choper le CSS
+    {{ encore_entry_script_tags('js/app') }} pour choper le JS    #}
+
+
+    {# <script src="{{ asset('build/ad.js') }}"></script> #}
+    {# <script src="{{ encore_entry_script_tags('ad') }}"></script> #}
+    {{ encore_entry_script_tags('ad') }}
     
 {% endblock %}
